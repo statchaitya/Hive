@@ -1,0 +1,16 @@
+CREATE TEMPORARY TABLE IF NOT EXISTS total_pop_text(zip int, totalpop int)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+CREATE TABLE IF NOT EXISTS total_pop_orc(zip int, totalpop int) 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+STORED AS ORC;
+
+LOAD DATA LOCAL INPATH '/root/exercise2/data/zip_totpop.csv' OVERWRITE INTO TABLE total_pop_text;
+
+INSERT OVERWRITE TABLE total_pop_orc SELECT * FROM total_pop_text;
+
+
+

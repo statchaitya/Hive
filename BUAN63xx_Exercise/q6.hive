@@ -1,0 +1,1 @@
+SELECT avg(totalpop) as avg_total_pop from total_pop_text;

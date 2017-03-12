@@ -1,0 +1,11 @@
+create temporary table if not exists total_pop_str (zip string, len int, totalpop int);
+
+insert overwrite table total_pop_str SELECT cast(zip as string), length(zip) as len, totalpop FROM total_pop_text;
+
+WITH temp AS (SELECT SUBSTR(zip,0,2) as FirstTwo, totalpop FROM total_pop_str)
+SELECT FirstTwo, count(*) AS NumberOfZipCodes FROM temp
+GROUP BY FirstTwo
+ORDER BY NumberOfZipCodes;
+
+
+ 
