@@ -1,2 +1,0 @@
-WITH temp AS (SELECT cast(zip as string), femalepop FROM female_pop_text WHERE zip LIKE "75%")
-SELECT avg(femalepop) as avg_female_pop from temp;
