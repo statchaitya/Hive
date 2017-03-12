@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS female_pop_text(zip int, femalepop int) 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+STORED AS TEXTFILE;
+
+LOAD DATA LOCAL INPATH '/root/exercise2/data/zip_femalepop.csv' OVERWRITE INTO TABLE female_pop_text;

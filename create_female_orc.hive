@@ -1,0 +1,13 @@
+CREATE TEMPORARY TABLE IF NOT EXISTS female_pop_text(zip int, femalepop int) 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+STORED AS TEXTFILE;
+
+LOAD DATA LOCAL INPATH '/root/exercise2/data/zip_femalepop.csv' OVERWRITE INTO TABLE female_pop_text;
+
+CREATE TABLE IF NOT EXISTS female_pop_orc(zip int, femalepop int) 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+STORED AS ORC;
+
+INSERT OVERWRITE TABLE female_pop_orc SELECT * FROM female_pop_text;

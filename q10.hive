@@ -1,0 +1,2 @@
+WITH temp AS (SELECT cast(zip as string), totalpop FROM total_pop_text WHERE zip LIKE "75%")
+SELECT avg(totalpop) as avg_total_pop from temp;
