@@ -1,7 +1,0 @@
-CREATE TABLE IF NOT EXISTS male_pop_text(zip int, malepop int) 
-ROW FORMAT DELIMITED 
-FIELDS TERMINATED BY ',' 
-STORED AS TEXTFILE;
-
-LOAD DATA LOCAL INPATH '/root/exercise2/data/zip_malepop.csv' OVERWRITE INTO TABLE male_pop_text;
-
