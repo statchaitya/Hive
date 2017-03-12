@@ -1,4 +1,0 @@
-SELECT tpt.zip 
-FROM total_pop_text AS tpt
-WHERE tpt.zip NOT IN
-(SELECT female_pop_text.zip FROM female_pop_text);
