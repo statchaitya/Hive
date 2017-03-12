@@ -1,3 +1,0 @@
-WITH temp AS (SELECT * FROM male_pop_text ORDER BY malepop DESC LIMIT 3) 
-SELECT * FROM temp 
-ORDER BY malepop;
