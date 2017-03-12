@@ -1,8 +1,0 @@
-create temporary table if not exists total_pop_str (zip string, len int, totalpop int);
-
-insert overwrite table total_pop_str SELECT cast(zip as string), length(zip) as len, totalpop FROM total_pop_text WHERE zip like "${hiveconf:num}%";
-
-WITH temp AS (SELECT SUBSTR(zip,0,1) as FirstNumber, totalpop FROM total_pop_str)
-SELECT FirstNumber, sum(totalpop) AS TotalPop FROM temp
-GROUP BY FirstNumber
-ORDER BY TotalPop;
