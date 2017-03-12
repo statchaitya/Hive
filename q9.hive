@@ -1,5 +1,0 @@
-SELECT ftp.zip, abs(ftp.femalepop - mtp.malepop) as diff 
-FROM female_pop_text AS ftp, male_pop_text AS mtp
-WHERE ftp.zip = mtp.zip
-ORDER BY diff DESC
-LIMIT 5;
