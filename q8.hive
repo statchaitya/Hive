@@ -1,1 +1,0 @@
-SELECT avg(malepop) as avg_male_pop from male_pop_text;
