@@ -1,0 +1,31 @@
+DROP TABLE IF EXISTS race_type_incidents;
+CREATE TABLE IF NOT EXISTS race_type_incidents as
+select Incident_Number_with_Year,Date1_of_Occurrence,Zip_Code,City,
+Complainant_Race,Complainant_Gender,Complainant_Age,Complainant_Age_at_Offense,Type_of_Incident,
+CASE
+	WHEN Type_of_Incident like 'ACCIDENT%' THEN 'Accident'
+	WHEN Type_of_Incident like 'ARSON%' THEN 'Arson'
+	WHEN Type_of_Incident like 'ASSAULT%' THEN 'Assault'
+	WHEN Type_of_Incident like 'BMV%' THEN 'BMV'
+	WHEN Type_of_Incident like 'BURGLARY%' THEN 'Burglary'
+	WHEN Type_of_Incident like 'CAPITAL MURDER%' THEN 'Capital Murder'
+	When Type_of_Incident like 'CRIM MISCHIEF%' THEN 'Crime Mischeif'
+	When Type_of_Incident like 'POSS%' THEN 'Illegal Drugs'
+	When Type_of_Incident like 'TAMPER%' THEN 'Tamper Goverment Records'
+	When Type_of_Incident like 'TERRORISTIC%' THEN 'Terrorist Attack'
+	When Type_of_Incident like 'THEFT OF PROP (ATT)%' THEN 'Theft of Prop'
+	When Type_of_Incident like 'THEFT OF PROP (AUTO ACC)%' THEN 'Theft of Auto'
+	When Type_of_Incident like 'THEFT OF PROP <%' THEN 'Theft of Prop - Other'
+	When Type_of_Incident like 'THEFT OF PROP >%' THEN 'Theft of Prop - Other'
+	When Type_of_Incident like 'THEFT OF SERVICE%' THEN 'Theft of Service'
+	When Type_of_Incident like 'THEFT OF PROP greater%' THEN 'Theft of Prop'
+	When Type_of_Incident like 'THEFT OF PROP less%' THEN 'Theft of Prop'
+	When Type_of_Incident like 'CRIMINAL TRESPASS%' THEN 'Criminal Trespass'
+	When Type_of_Incident like 'UNAUTHORIZED USE OF MOTOR%' THEN 'Unauthorized use of Vehicle'
+	When Type_of_Incident like '%PROPERTY%' THEN 'Property Related Issue'
+       	Else 'Other'
+	
+
+END AS Incident_Category
+from police_incidents;
+

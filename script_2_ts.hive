@@ -1,0 +1,60 @@
+add jar /root/project/csv-serde-1.1.2.jar;
+
+DROP TABLE IF EXISTS data_by_zip;
+
+CREATE TEMPORARY TABLE data_by_zip
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+AS
+SELECT zip_code, count(*) AS c
+FROM dallas_crimes_text
+GROUP BY zip_code
+ORDER BY c DESC;
+
+CREATE TEMPORARY TABLE main_gbzip_tsdata
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+AS
+SELECT  
+zip_code, month1_of_occurence, year1_of_occurrence, count(*) AS c
+FROM dallas_crimes_text 
+GROUP BY zip_code, month1_of_occurence, year1_of_occurrence
+ORDER BY c DESC;
+
+INSERT OVERWRITE LOCAL DIRECTORY '/root/timeseries_hiveconf_zip'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+SELECT zip_code, c, year1_of_occurrence, month1_of_occurence,
+CASE
+	WHEN month1_of_occurence LIKE "Ja%" THEN "01"
+	WHEN month1_of_occurence LIKE "Fe%" THEN "02"
+	WHEN month1_of_occurence LIKE "Mar%" THEN "03"
+	WHEN month1_of_occurence LIKE "Ap%" THEN "04"
+	WHEN month1_of_occurence LIKE "May" THEN "05"
+	WHEN month1_of_occurence LIKE "Jun%" THEN "06"
+	WHEN month1_of_occurence LIKE "Jul%" THEN "07"
+	WHEN month1_of_occurence LIKE "Au%" THEN "08"
+	WHEN month1_of_occurence LIKE "Se%" THEN "09"
+	WHEN month1_of_occurence LIKE "Oc%" THEN "10"
+	WHEN month1_of_occurence LIKE "No%" THEN "11"
+	WHEN month1_of_occurence LIKE "De%" THEN "12"
+END AS month1_of_occurence_number
+FROM main_gbzip_tsdata 
+WHERE zip_code LIKE "${hiveconf:zip}" AND c > 200
+ORDER BY year1_of_occurrence, month1_of_occurence_number;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
